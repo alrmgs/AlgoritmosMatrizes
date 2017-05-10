@@ -5,21 +5,30 @@
  */
 package MatrizesArquivos;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 
 /**
  *
- * @author alexia-gomes
+ * @author Aléxia e Daniel
  */
 public class ExibeMatrizes {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
-        MatrizesArquivos matrizesArquivos = new MatrizesArquivos();
 
-        int[][] resultado = matrizesArquivos .leituraMatrizOriginal("example_4.txt");
-        matrizesArquivos.exibe(resultado);
-        
+        while (true) {
+            Scanner e = new Scanner(System.in);
+            System.out.println("Nome do arquivo: (example_0.txt, example_1.txt, example_2.txt, example_3.txt, example_4.txt)");
+            String op = null;
+            op = e.next();
+            MatrizesArquivos matrizesArquivos = new MatrizesArquivos();
+
+            int[][] resultado = matrizesArquivos.leituraMatrizOriginal(op);
+            matrizesArquivos.exibe(resultado);
+        }
     }
 
 }

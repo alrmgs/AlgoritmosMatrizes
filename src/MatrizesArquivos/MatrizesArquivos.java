@@ -15,14 +15,14 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author alexia-gomes
+ * @author Aléxia e Daniel
  */
 public class MatrizesArquivos {
 
     public int contador(int[][] matrizIlhas) {
 
-        int verificaLinha = matrizIlhas[0].length;
-        int verificaColuna = matrizIlhas.length;
+        int verificaLinha = matrizIlhas.length;
+        int verificaColuna = matrizIlhas[0].length;
         int indiceIlhas = 0;
         boolean[][] verificaIlhas = new boolean[verificaLinha][verificaColuna];
 
@@ -35,7 +35,7 @@ public class MatrizesArquivos {
                 }
             }
         }
-        return 0;
+        return indiceIlhas;
     }//fecha contador
 
     public void procuraIlha(int[][] matrizIlha, boolean[][] verificaIlhas, int verificaLinha, int verificaColuna) {
@@ -63,7 +63,8 @@ public class MatrizesArquivos {
     }//fecha prcuraIlha
 
     /**
-     * Responsável pela leitura das matrizes originais, ainda sem contar as ilhas.
+     * Responsável pela leitura das matrizes originais, ainda sem contar as
+     * ilhas.
      */
     public int[][] leituraMatrizOriginal(String fileName) throws FileNotFoundException, IOException {
         try {
@@ -87,16 +88,15 @@ public class MatrizesArquivos {
 
         } catch (IOException e) {
             System.err.print(e.getMessage());
+            //return new int[0][0];
         }
-        
         return null;
     }//fecha leituraMatrizOriginal
 
-    
     /**
-     * Responsável por exibir matrizes. 
-     * if responsável por exibibir as colunas e else as linhas.
-     * Informa o numero de ilhas contidas na matriz do exemplo 0,1,2,3 e 4.
+     * Responsável por exibir matrizes. if responsável por exibibir as colunas e
+     * else as linhas. Informa o numero de ilhas contidas na matriz do exemplo
+     * 0,1,2,3 e 4.
      */
     public void exibe(int[][] matrizIlhas) {
 
