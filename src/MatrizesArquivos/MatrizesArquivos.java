@@ -5,6 +5,12 @@
  */
 package MatrizesArquivos;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
 /**
  *
  * @author alexia-gomes
@@ -44,6 +50,38 @@ public class MatrizesArquivos {
         if (matrizIlhas[verificaLinha][verificaColuna] == 0) {
 
         }
-
     }
+
+    public int[][] matrizOriginal(String fileName) throws FileNotFoundException, IOException {
+
+        BufferedReader buffer = null;
+
+        while (true) {
+            try {
+
+                System.out.println(" ");
+                String nomeArquivo = null;
+
+                buffer = new BufferedReader(new FileReader(nomeArquivo + ".txt"));
+
+                String arquivoLinhas = buffer.readLine();
+                String[] tamanhoMatriz = arquivoLinhas.split(" ");
+                int coluna = Integer.parseInt(tamanhoMatriz[0]);
+                int linha = Integer.parseInt(tamanhoMatriz[1]);
+                String[][] matriz = new String[linha][coluna];
+
+                int indiceColuna = 0;
+
+                while ((arquivoLinhas = buffer.readLine()) != null) {
+                    String[] testaLinhas = arquivoLinhas.split("");
+                    for (int indiceLinha = 0; indiceLinha < testaLinhas.length; indiceLinha++) {
+                        matriz[indiceColuna][indiceLinha] = testaLinhas[indiceLinha];
+                    }
+                    indiceColuna++;
+                }
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
+    }//fecha matrizOriginal
 }//fecha contador
