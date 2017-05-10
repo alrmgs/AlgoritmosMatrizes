@@ -52,7 +52,7 @@ public class MatrizesArquivos {
         }
     }
 
-    public int[][] matrizOriginal(String fileName) throws FileNotFoundException, IOException {
+    public int[][] leituraMatrizOriginal(String fileName) throws FileNotFoundException, IOException {
 
         BufferedReader buffer = null;
 
@@ -83,5 +83,21 @@ public class MatrizesArquivos {
                 System.err.println(e.getMessage());
             }
         }
-    }//fecha matrizOriginal
+    }//fecha leituraMatrizOriginal
+
+    public void exibeMatrizes(int[][] matrizIlhas) {
+        for(int l = 0; l < matrizIlhas.length; l++){
+            for(int c = 0; c < matrizIlhas[0].length; c++){
+                
+                if(c == matrizIlhas[0].length - 1){
+                    System.out.println(matrizIlhas[l][c] + "");
+                }else{
+                    System.out.println("" + matrizIlhas[l][c] + "");
+                }
+                
+            }
+        }
+        
+        System.out.println("Número de ilhas contidas nesta matriz: " + contador(matrizIlhas));
+    }
 }//fecha contador
