@@ -49,6 +49,10 @@ public class MatrizesArquivos {
 
         if (matrizIlhas[verificaLinha][verificaColuna] == 0) {
 
+            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 0, verificaColuna - 1);
+            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 0, verificaColuna + 1);
+            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 1, verificaColuna + 0);
+            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha - 1, verificaColuna + 1);
         }
     }
 
@@ -86,18 +90,20 @@ public class MatrizesArquivos {
     }//fecha leituraMatrizOriginal
 
     public void exibeMatrizes(int[][] matrizIlhas) {
-        for(int l = 0; l < matrizIlhas.length; l++){
-            for(int c = 0; c < matrizIlhas[0].length; c++){
-                
-                if(c == matrizIlhas[0].length - 1){
+        for (int l = 0; l < matrizIlhas.length; l++) {
+            for (int c = 0; c < matrizIlhas[0].length; c++) {
+
+                if (c == matrizIlhas[0].length - 1) {
                     System.out.println(matrizIlhas[l][c] + "");
-                }else{
+                } else {
                     System.out.println("" + matrizIlhas[l][c] + "");
                 }
-                
+
             }
         }
-        
+
         System.out.println("Número de ilhas contidas nesta matriz: " + contador(matrizIlhas));
     }
+
+
 }//fecha contador
