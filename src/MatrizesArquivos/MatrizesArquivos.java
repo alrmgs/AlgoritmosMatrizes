@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -10,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,84 +28,89 @@ public class MatrizesArquivos {
 
         for (int l = 0; l < verificaLinha; l++) {
             for (int c = 0; c < verificaColuna; c++) {
+
                 if (!verificaIlhas[l][c] && matrizIlhas[l][c] == 1) {
+                    procuraIlha(matrizIlhas, verificaIlhas, l, c);
                     indiceIlhas++;
                 }
             }
-        }//fecja for
-
+        }
         return 0;
     }//fecha contador
 
-    public void procuraIlha(int[][] matrizIlhas, boolean[][] verificaIlhas, int verificaLinha, int verificaColuna) {
+    public void procuraIlha(int[][] matrizIlha, boolean[][] verificaIlhas, int verificaLinha, int verificaColuna) {
 
         if (verificaLinha < 0 || verificaColuna < 0) {
+            return;
         }
-
-        if (verificaLinha >= matrizIlhas.length || verificaColuna >= matrizIlhas[0].length) {
+        if (verificaLinha >= matrizIlha.length || verificaColuna >= matrizIlha[0].length) {
+            return;
         }
 
         if (verificaIlhas[verificaLinha][verificaColuna] == true) {
-            verificaIlhas[verificaLinha][verificaColuna] = true;
+            return;
+        }
+        verificaIlhas[verificaLinha][verificaColuna] = true;
+
+        if (matrizIlha[verificaLinha][verificaColuna] == 0) {
+            return;
         }
 
-        if (matrizIlhas[verificaLinha][verificaColuna] == 0) {
+        procuraIlha(matrizIlha, verificaIlhas, verificaLinha + 0, verificaColuna - 1);
+        procuraIlha(matrizIlha, verificaIlhas, verificaLinha + 0, verificaColuna + 1);
+        procuraIlha(matrizIlha, verificaIlhas, verificaLinha + 1, verificaColuna + 0);
+        procuraIlha(matrizIlha, verificaIlhas, verificaLinha - 1, verificaColuna + 0);
+    }//fecha prcuraIlha
 
-            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 0, verificaColuna - 1);
-            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 0, verificaColuna + 1);
-            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha + 1, verificaColuna + 0);
-            procuraIlha(matrizIlhas, verificaIlhas, verificaLinha - 1, verificaColuna + 1);
-        }
-    }
-
+    /**
+     * Responsável pela leitura das matrizes originais, ainda sem contar as ilhas.
+     */
     public int[][] leituraMatrizOriginal(String fileName) throws FileNotFoundException, IOException {
+        try {
 
-        BufferedReader buffer = null;
+            FileReader arquivo = new FileReader(fileName);
+            BufferedReader leituraArquivo = new BufferedReader(arquivo);
+            String primeiraLinha = leituraArquivo.readLine();
+            String[] divideLinha = primeiraLinha.split(" ");
+            int coluna = Integer.parseInt(divideLinha[0]);
+            int linha = Integer.parseInt(divideLinha[1]);
+            int[][] matrizIlha = new int[linha][coluna];
 
-        while (true) {
-            try {
-
-                System.out.println(" ");
-                String nomeArquivo = null;
-
-                buffer = new BufferedReader(new FileReader(nomeArquivo + ".txt"));
-
-                String arquivoLinhas = buffer.readLine();
-                String[] tamanhoMatriz = arquivoLinhas.split(" ");
-                int coluna = Integer.parseInt(tamanhoMatriz[0]);
-                int linha = Integer.parseInt(tamanhoMatriz[1]);
-                String[][] matriz = new String[linha][coluna];
-
-                int indiceColuna = 0;
-
-                while ((arquivoLinhas = buffer.readLine()) != null) {
-                    String[] testaLinhas = arquivoLinhas.split("");
-                    for (int indiceLinha = 0; indiceLinha < testaLinhas.length; indiceLinha++) {
-                        matriz[indiceColuna][indiceLinha] = testaLinhas[indiceLinha];
-                    }
-                    indiceColuna++;
+            for (int l = 0; l < linha; l++) {
+                char[] cs = leituraArquivo.readLine().toCharArray();
+                for (int c = 0; c < coluna; c++) {
+                    matrizIlha[l][c] = Integer.parseInt(String.valueOf(cs[c]));
                 }
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
             }
+            arquivo.close();
+            return matrizIlha;
+
+        } catch (IOException e) {
+            System.err.print(e.getMessage());
         }
+        
+        return null;
     }//fecha leituraMatrizOriginal
 
-    public void exibeMatrizes(int[][] matrizIlhas) {
+    
+    /**
+     * Responsável por exibir matrizes. 
+     * if responsável por exibibir as colunas e else as linhas.
+     * Informa o numero de ilhas contidas na matriz do exemplo 0,1,2,3 e 4.
+     */
+    public void exibe(int[][] matrizIlhas) {
+
         for (int l = 0; l < matrizIlhas.length; l++) {
             for (int c = 0; c < matrizIlhas[0].length; c++) {
-
                 if (c == matrizIlhas[0].length - 1) {
                     System.out.println(matrizIlhas[l][c] + "");
                 } else {
-                    System.out.println("" + matrizIlhas[l][c] + "");
+                    System.out.print("" + matrizIlhas[l][c] + " ");
                 }
-
             }
         }
 
-        System.out.println("Número de ilhas contidas nesta matriz: " + contador(matrizIlhas));
-    }
+        System.out.println("\nNumero de ilhas contidas na matriz:" + contador(matrizIlhas));
+    }//fecha exibe
 
-
-}//fecha contador
+}

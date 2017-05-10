@@ -5,6 +5,7 @@
  */
 package MatrizesArquivos;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -12,11 +13,13 @@ import java.io.IOException;
  * @author alexia-gomes
  */
 public class ExibeMatrizes {
-    public static void main(String[] args) throws IOException {
+
+    public static void main(String[] args) throws FileNotFoundException, IOException {
         MatrizesArquivos matrizesArquivos = new MatrizesArquivos();
+
+        int[][] resultado = matrizesArquivos .leituraMatrizOriginal("example_4.txt");
+        matrizesArquivos.exibe(resultado);
         
-        int[][] exibeMatriz = matrizesArquivos.leituraMatrizOriginal("example_0.txt");
-        matrizesArquivos.leituraMatrizOriginal(exibeMatriz);
     }
-   
+
 }
